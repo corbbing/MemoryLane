@@ -1,0 +1,596 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Memory Lane</title>
+<style type="text/css">
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400italic,700italic,300,700,300italic,400);
+
+body, html {
+	margin: 0px;
+	font-family: Roboto;
+	-webkit-user-select: none;
+	background-color: #009688;
+}
+
+.buttons button {
+	border: none;
+	background: none;
+	font-style: inherit;
+	font-size: 24px;
+	color: #00C601;
+	font-size: 24px;
+}
+
+.amt {
+	color: #00C601;
+	text-align: center;
+}
+
+.buttons button:disabled{
+	opacity: 0.4;
+}
+
+#bitview, #bpsview{
+	font-size: 9vw;
+	color: rgba(255,255,255,1);
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-shadow: 0px 1px 3px rgba(0,0,0,0.4);
+}
+
+.downloading {
+	opacity: 0.5;
+}
+
+#bpsview {
+	color: rgba(255,255,255,.9);
+	font-size: 4vw;
+}
+
+.card {
+	width: 300px;
+	height: 300px;
+	background-color: #FAFAFA;
+	border-radius: 2px;
+	padding: 8px;
+	box-shadow: 0px 1px 4px 1px rgba(0,0,0,0.3);
+	
+}
+
+.ccontainer {
+	padding: 4px;
+	display: inline-block;
+	white-space: normal;
+}
+
+.card .img {
+	border-radius: 48px;
+	height: 96px;
+	width: 96px;
+	margin: auto;
+	background-size: cover;
+	background-position: center;
+}
+
+.card .text{
+	padding: 32px;
+	text-align: center;
+	font-size: 24px;
+}
+
+.card .button{
+
+}
+
+#upgrades {
+	height: 350px;
+	background-color: #fff;
+	border-top: 1px solid #e9e9e9;
+	border-bottom: 1px solid #e9e9e9;
+	overflow-x: auto;
+	padding: 4px;
+	margin: 12px;
+	font-size: 24px;
+	box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.5);
+}
+
+#research {
+	height: 350px;
+	background-color: #fff;
+	border-top: 1px solid #e9e9e9;
+	border-bottom: 1px solid #e9e9e9;
+	overflow-x: auto;
+	padding: 4px;
+	margin: 12px;
+	box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar{
+	height: 8px;
+	width: 8px;
+	background-color: #fff;
+	padding: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background-color: #aaa;
+}
+
+#upgrades .container{
+	white-space: nowrap;
+	display: inline-block;
+
+}
+
+.number {
+	color: #00f;
+	text-align: center;
+	padding-bottom: 4px;
+}
+
+.buttons {
+	border-top: 1px solid #aaa;
+	height: 40px;
+	padding-top: 8px;
+	text-align: center;
+}
+.disabled {
+	opacity: 0.5;
+}
+
+.heading {
+	padding: 8px;
+	color: #000;
+	position: absolute;
+	border-radius: 4px;
+	background-color: rgba(127,127,127,0.4);
+	-webkit-transition: opacity 0.4s;
+	-moz-transition: opacity 0.4s;
+	transition: opacity 0.4s;
+	opacity: .5;
+}
+
+#upgrades:hover .heading{
+	opacity: 1;
+}
+
+#research:hover .heading{
+	opacity: 1;
+}
+
+.menubutton {
+	width: 64px;
+	height: 64px;
+	background-color: #fff;
+	margin: 8px;
+	position: fixed;
+	top: 0px;
+	opacity: 0.8;
+	-webkit-transition: opacity 0.4s;
+	-moz-transition: opacity 0.4s;
+	transition: opacity 0.4s;
+}
+
+.menubutton:hover{
+	opacity: 1;
+}
+
+.title {
+	text-align: center;
+	color: #fff;
+	font-size: 30px;
+}
+
+/*Sprites*/
+
+.sprite_menu {
+	height: 64px;
+	width: 64px;
+	background: url(img/menu.svg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.copperWire {
+	background: url(img/lasercable.jpg);
+}
+
+.telephoneCables{
+	background: url(img/cable.jpg);
+}
+
+.ethernet{
+	background: url(img/ethernet.jpg);
+}
+
+.fibre {
+	background: url(img/fibre.jpg);
+}
+
+.laser {
+	background: url(img/laser.jpg);
+}
+
+.lasercable {
+	background: url(img/lasercable.jpg);
+}
+
+.quantumwire {
+	background: url(img/lasercable.jpg);
+}
+
+.quantumcable {
+	background: url(img/lasercable.jpg);
+}
+
+.socialnetwork {
+	background: url(img/lasercable.jpg);
+}
+
+.tinder {
+	background: url(img/lasercable.jpg);
+}
+
+
+</style>
+</head>
+
+<body>
+<div class="title">Memory Lane</div>
+<div class="menubutton" id="menu">
+	<div class="sprite_menu"></div>
+</div>
+<div>
+	<div id="bitview">0</div>
+	<div id="bpsview">0</div>
+</div>
+<div id="upgrades">
+	<div class="heading">Upgrades</div>
+
+	<div class="container" id="up">
+
+		<div class="ccontainer">
+			<div class="card">
+				<div class="img telephoneCables "></div>
+				<div class="text">Telephone Cables</div>
+				<div class="number">1</div>
+				<div class="buttons">
+					<button disabled>Upgrade</button>
+				</div>
+			</div>
+		</div>
+		<div class="ccontainer">
+			<div class="card">
+				<div class="img ethernet"></div>
+				<div class="text">Ethernet Cables</div>
+				<div class="number">0</div>
+				<div class="buttons">
+					<button>Upgrade</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="research">
+	<div class="heading">Research</div>
+	<div class="container" id="re">
+
+		<div class="ccontainer">
+			<div class="card">
+				<div class="img telephoneCables "></div>
+				<div class="text">Base64 Encoding</div>
+				<div class="number">1</div>
+				<div class="buttons">
+					<button disabled>Upgrade</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+//Alpha version 0.0.2
+
+function shownVariable(name,tag,className,parent){
+	this.name = name;
+	this.class = className;
+	this.element = document.createElement(tag);
+	this.element.innerHTML = this.name;
+	this.element.className = className;
+	this.children = [];
+	console.log(parent);
+	console.log(this.element);
+	if (parent instanceof shownVariable){
+		if (parent.element){
+			parent.element.appendChild(this.element);
+			parent.children.push(this);
+		}
+	}
+	else {
+			parent.appendChild(this.element);
+		}
+}
+
+shownVariable.prototype.setName = function(n){
+	this.name = n;
+	this.element.innerHTML = n;
+	for (var i = 0; i < this.children.length; i++){
+		this.element.appendChild(this.children[i].element);
+	}
+}
+
+var SIZE = {};
+SIZE.bit = 1;
+SIZE.byte = 8;
+SIZE.kb = 1024 * 8;
+SIZE.mb = SIZE.kb * 1024;
+SIZE.gb = SIZE.mb * 1024;
+SIZE.tb = SIZE.gb * 1024;
+SIZE.pb = SIZE.tb * 1024;
+SIZE.eb = SIZE.pb * 1024;
+SIZE.zb = SIZE.eb * 1024;
+SIZE.yb = SIZE.zb * 1024;
+
+function $(s){
+	return document.getElementById(s);
+}
+
+function ndec(n, p){
+	return Math.floor(n * p) / p; 
+}
+
+function Player(){
+	this.bps = 1;
+	this.bpc = 1;
+	this.bits = 0;
+	this.lastBits = 0;
+	this.secs = 0;
+	this.time = Date.now();
+	this.lastTime = Date.now();
+}
+
+function Research(name, mult, amount){
+	this.name = name;
+	this.multiplier = mult;
+	this.count = 0;
+	this.sent = 0;
+	this.buying = false;
+	this.amount = amount
+}
+
+Upgrade.prototype.buy = function(){
+	this.buying = true;
+}
+
+function Upgrade(name, bps, bpc, amount){
+	this.name = name;
+	this.bps = bps;
+
+	this.bpc = bpc;
+	this.count = 0;
+	this.amount = amount;
+	this.sent = 0;
+	this.buying = false;
+}
+
+Upgrade.prototype.getAmount = function(){
+	return this.amount * Math.pow(1.15, this.count);
+}
+
+Upgrade.prototype.buy = function(){
+	this.buying = true;
+}
+
+Upgrade.prototype.getTotal = function() {
+	return this.bps * this.count;
+};
+
+Upgrade.prototype.getSize = function() {
+	return getSize(this.amount);
+};
+
+Upgrade.prototype.sell = function(){
+	p.bits += this.getAmount() / 3;
+	this.count--;
+}
+
+function getSize(num){
+	var n = "bits"
+	var number = 1;
+	if (num > 8){
+		n = "bytes";
+		number = 8;
+	}
+	if (num > SIZE.kb){
+		n = "kb";
+		number = SIZE.kb;
+	}
+	if (num > SIZE.mb){
+		n = "mb";
+		number = SIZE.mb;
+	}
+	if (num > SIZE.gb){
+		n = "gb";
+		number = SIZE.gb;
+	}
+	if (num > SIZE.tb){
+		n = "tb";
+		number = SIZE.tb;
+	}
+	if (num > SIZE.pb){
+		n = "pb";
+		number = SIZE.pb;
+	}
+
+	return ndec(num / number,10) + " " +n;
+}
+
+var UPGRADES = {};
+UPGRADES.copperWire = new Upgrade("Copper Wire", 1, 1, 16);
+UPGRADES.telephoneCables = new Upgrade("Telephone Cables", 4, 1, 128);
+UPGRADES.ethernet = new Upgrade("Ethernet Cables", 32, 2, 128 * 8);
+UPGRADES.fibre = new Upgrade("Fibre Optic Cables", 128, 4, 1024 * 8 * 2);
+UPGRADES.laser = new Upgrade("Laser Wire", 128 * 8, 16, 1024 * 128);
+UPGRADES.lasercable = new Upgrade("Laser Cable", 512 * 8, 32, 2048 * 512);
+UPGRADES.quantumwire = new Upgrade("Quantum Wire", 2048 * 16, 64, 4096 * 2048 + 1);
+UPGRADES.quantumcable = new Upgrade("Quantum Cable", SIZE.kb * 64, SIZE.kb, SIZE.mb * 128 + 1);
+UPGRADES.socialnetwork = new Upgrade("Social Network", SIZE.kb * 512, 64, SIZE.gb + 1);
+UPGRADES.tinder = new Upgrade("Tinder", SIZE.mb * 4, 64, SIZE.gb * 10 + 1);
+
+var RESEARCH = {};
+RESEARCH.base64 = new Research("Base64 Encoding",1,SIZE.gb);
+
+var p = new Player();
+
+var updateList = false;
+
+var bpsfromupgrades = 0, bcsfromupgrades = 0, bpsmult = 1;
+
+
+function getTotal(){
+	bpsfromupgrades = 0;
+	bcsfromupgrades = 0;
+	for (name in UPGRADES){
+		bpsfromupgrades += UPGRADES[name].count * UPGRADES[name].bps;
+		bcsfromupgrades += UPGRADES[name].count * UPGRADES[name].bpc;
+	}
+}
+
+function getBps(){
+	var ret = (p.bps + bpsfromupgrades) * bpsmult;
+	return ret;
+}
+
+function draw(){
+
+	getTotal();
+	var out = $("bitview");
+	if (p.lastBits < p.bits){
+	p.lastBits = p.lastBits + (p.bits * 0.01)
+	out.innerHTML = getSize(p.lastBits)
+	}
+	else{
+		p.lastBits = p.bits;
+	}
+	var n1 = "bits"
+	var number1 = 1;
+	if (p.bps / 1 > 8){
+		n1 = "bytes";
+		number1 = 8;
+	}
+	if (p.bps / 1 > 1024){
+		n1 = "kb";
+		number1 = 1024;
+	}
+	var bp = $("bpsview");
+
+	bp.innerHTML = getSize(getBps() / 1) + "/sec";
+	p.lastTime = p.time;
+	p.time = Date.now();
+	p.secs += (p.time - p.lastTime);
+	while (p.secs > 1000){
+		
+		p.bits += getBps();
+		out.className = "";
+		for (name in UPGRADES){
+			if (UPGRADES[name].buying){
+				UPGRADES[name].sent += (getBps()) * 2;
+				p.bits -= (getBps()) * 2;
+				out.className = "downloading";
+				if (UPGRADES[name].sent >= UPGRADES[name].getAmount()){
+					UPGRADES[name].count++;
+					UPGRADES[name].sent = 0;
+					UPGRADES[name].buying = false;
+				}
+				
+			}
+		}
+		updateList = true;
+		p.secs -= 1000;	
+	}
+	var s = "";
+	if (updateList){
+	for (name in UPGRADES){
+		var d = "";
+		var upg = "Upgrade";
+		var sellbutton = "<button onclick='UPGRADES[&apos;"+name+"&apos;].sell()'>Sell</button>"
+		var img = name;
+		var shownname = UPGRADES[name].name;
+		if (UPGRADES[name].count == 0){
+			upg = "Download";
+			img = "lasercable";
+			shownname = "?????? ??????"
+			sellbutton = "";
+		}
+		if (UPGRADES[name].buying){
+			d= "disabled";
+			upg = ndec((UPGRADES[name].sent / UPGRADES[name].getAmount()) * 100, 10) + "%"
+		}
+		if (UPGRADES[name].getAmount() > p.bits){
+			d="disabled";
+		}
+
+
+		s += "<div class='ccontainer'><div class='card'><div class='img "+img+" " +d + "' ></div><div class='text "+d+"'>"+shownname+"</div>" + "<div class='number "+d+"'>x"+UPGRADES[name].count+", "+getSize(UPGRADES[name].getAmount())+"</div><div class='amt'>+"+getSize(UPGRADES[name].bps)+"</div>" + "<div class='buttons'>" + "<button "+d+" onclick=' UPGRADES[&apos;"+name+"&apos;].buy();\'>"+upg+"</button>"+sellbutton+"</div></div></div>"
+		
+		}
+	$("up").innerHTML = s;
+	updateList = false;
+	}
+	
+
+}
+
+window.onclick = function(){
+	p.bits += p.bpc + bcsfromupgrades;
+	getTotal();
+	for (name in UPGRADES){
+		if (UPGRADES[name].buying){
+			UPGRADES[name].sent += (p.bpc + bcsfromupgrades) / 10;
+			if (UPGRADES[name].sent >= UPGRADES[name].getAmount()){
+				UPGRADES[name].count++;
+				UPGRADES[name].sent = 0;
+				UPGRADES[name].buying = false;
+			}
+		}
+	}
+}
+
+window.ontouchend = function(){
+	p.bits += p.bpc + bcsfromupgrades;
+	getTotal();
+	for (name in UPGRADES){
+		if (UPGRADES[name].buying){
+			UPGRADES[name].sent += (p.bpc + bcsfromupgrades) / 10;
+			if (UPGRADES[name].sent >= UPGRADES[name].getAmount()){
+				UPGRADES[name].count++;
+				UPGRADES[name].sent = 0;
+				UPGRADES[name].buying = false;
+			}
+		}
+	}
+}
+
+
+setInterval(draw, 1000/60);
+
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- memorylane ads -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-7910445405493502"
+     data-ad-slot="4669594144"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div>*2015 © Corbbin Goldsmith</div>
+</body>
+</html>
